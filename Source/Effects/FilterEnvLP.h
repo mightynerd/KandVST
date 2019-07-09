@@ -20,59 +20,30 @@
  *
  */
 
-#ifndef PIPELINE_H
-#define PIPELINE_H
-
+#ifndef FILTER_ENV_LP_H
+#define FILTER_ENV_LP_H
+#include "IEffect.h"
+#include "FilterButterworthEnv.h"
 #include "../JuceLibraryCode/JuceHeader.h"
-#include "EnvelopeGenerator.h"
-#include "WavetableOsc.h"
-#include "DelayEffect.h"
-#include "LFO.h"
-#include "FilterLP.h"
-#include "FilterEnvLP.h"
-#include "FilterHP.h"
-#include "ConvolutionReverb.h"
-#include "DistEffect.h"
-
-#include <tuple>
-#include <array>
+#include "ParameterHandler.h"
 
 template<typename T>
-class Pipeline 
+class FilterEnvLP :
+	public FilterButterworthEnv<T>
 {
-	typedef std::tuple<IGenerator*, AudioParameterFloat*, AudioParameterBool*> OscTripple;
+
 private:
-	static const size_t __num_osc = 4;
-	static const size_t __num_effects = 3;
-	std::array<OscTripple, __num_osc> __oscs;
-	std::array<IEffect<T>*, __num_osc*__num_effects> __effects;
-	AudioBuffer<T> tmpBuff;
-	double __rate;
-	int __note;
-	bool __active;
-	const int __maxBuffHint;
-
+	void CalculateCoefficients() override;
+	bool IsEnabled() override;
+	
 public:
+	FilterEnvLP(int ID, double sampleRate, String parameterId,GLOBAL*global);
+	~FilterEnvLP();
 
-
-	bool isActive();
-
-	void midiCommand(MidiMessage msg, int offset);
-	void forceMidiCommand(MidiMessage msg);
-
-
-	Pipeline(double rate,int maxBuffHint,GLOBAL*global);
-	Pipeline(const Pipeline<T>&) = delete;
-	Pipeline(Pipeline<T>&&);
-	int getNoteNumber();
-	void render_block(AudioBuffer<T>& buffer,int len);
-
-	~Pipeline();
 	static void RegisterParameters(int ID, GLOBAL*Global);
-
-	void Reset();
 	GLOBAL * Global;
 
 };
 
-#endif
+
+#endif //FILTER_ENV_LP_H

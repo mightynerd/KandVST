@@ -345,6 +345,10 @@ x         .         .         "Source/Editor/PluginGUI.cpp"
   .         .         .         "Source/Editor/ThemePicker.h"
   x         .         .         "Source/Components/VolumeMeterComponent.cpp"
   .         .         .         "Source/Components/VolumeMeterComponent.h"
+  x         .         .         "Source/Effects/FilterEnvLP.cpp"
+  .         .         .         "Source/Effects/FilterEnvLP.h"
+  x         .         .         "Source/Effects/FilterButterworthEnv.cpp"
+  .         .         .         "Source/Effects/FilterButterworthEnv.h"
 )
 
 jucer_project_module(
