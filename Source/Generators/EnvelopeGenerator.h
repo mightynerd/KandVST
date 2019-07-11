@@ -38,7 +38,7 @@ private:
 	uint8 __sustain;
 	double __velMulti;
 	AudioParameterFloat * __a_time,*__a_level, *__a_curve, *__h_time, *__d_time, *__d_level, *__d_curve, *__r_time, *__r_curve,*__s_level,*__s_time,*__s_curve;
-	
+	bool __filter;
 
 	int __counter;
 
@@ -52,10 +52,10 @@ public:
 	void setVelocity(uint8 vel);
 	void setSustain(uint8 sust);
 	static void RegisterParameters(int ID, GLOBAL*Global);
-	EnvelopeGenerator(int ID,double sampleRate,GLOBAL*global);
+	EnvelopeGenerator(int ID,double sampleRate,GLOBAL*global, bool filter);
 	bool isActive() const;
 	void Stop();
-	static void RenderImage(int __ID, Image * image, GLOBAL*Global);
+	static void RenderImage(int __ID, Image * image, GLOBAL*Global, bool filter);
 	GLOBAL*Global;
 	~EnvelopeGenerator();
 };

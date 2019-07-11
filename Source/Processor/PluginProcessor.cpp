@@ -75,6 +75,8 @@ PluginProcessor::PluginProcessor()
 			{-1}
 			}, Global);
 
+
+
 	Global->presetManager->RefreshPresets();
 	
 	*(Global->paramHandler->Get<AudioParameterBool>(0, "OSC_MIX_EN")) = 1; //Enable default oscillator

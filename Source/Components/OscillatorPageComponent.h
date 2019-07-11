@@ -49,6 +49,8 @@ public:
 private:
     //==============================================================================
 	EnvelopeComponent __envComponent;
+	EnvelopeComponent __filterEnvComponent;
+	TabbedComponent __envTabComponent;
 	OscillatorComponent __oscillator;
 	DistComponent __dist;
 	ComboBox __oscOctave;

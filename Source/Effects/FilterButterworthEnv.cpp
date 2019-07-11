@@ -31,7 +31,7 @@ FilterButterworthEnv<T>::FilterButterworthEnv(int ID, double sampleRate, String 
 	__firstSampleIndex(0),
 	__upperLimit(20000.0f),
 	__lowerLimit(20.0f),
-	__envelope(ID, sampleRate, global),
+	__envelope(ID, sampleRate, global, true),
 	__keyDown(false),
 	__envBuffer()
 {

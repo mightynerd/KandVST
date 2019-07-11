@@ -46,12 +46,13 @@ private:
 	virtual void componentParentHierarchyChanged(Component &component) override;
 	GLOBAL * Global;
 	bool __linked = false;
+	bool __filter = false;
 	//void Link(int id);
 	//void Unlink();
 	//virtual void mouseUp(const MouseEvent& event) override;
 
 public:
-	EnvelopeComponent(int ID,GLOBAL*global);
+	EnvelopeComponent(int ID,GLOBAL*global, bool filter);
 	~EnvelopeComponent();
 	void resized() override;
 	void paint(Graphics & g) override;

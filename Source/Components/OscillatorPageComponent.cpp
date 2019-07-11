@@ -29,7 +29,9 @@ OscillatorPageComponent::~OscillatorPageComponent()
 
 OscillatorPageComponent::OscillatorPageComponent(int ID,GLOBAL*global):
 IVSTParameters(ID),
-__envComponent(ID,global),
+__envComponent(ID,global,false),
+__filterEnvComponent(ID, global,true),
+__envTabComponent(juce::TabbedButtonBar::TabsAtTop),
 __oscillator(ID,global),
 __filterComponent(ID,global),
 __osclfoComponent(ID,global),
@@ -38,12 +40,23 @@ __dist(ID,global)
 	Global = global;
 	__amplitude = new ParameterSlider(*Global->paramHandler->Get<AudioParameterFloat>(ID,"OSC_MIX_AMP"),Global);
 
-	addAndMakeVisible(__envComponent);
+	//addAndMakeVisible(__envComponent);
 	addAndMakeVisible(__oscillator);
 	addAndMakeVisible(__amplitude);
 	addAndMakeVisible(__filterComponent);
 	addAndMakeVisible(__osclfoComponent);
 	addAndMakeVisible(__dist);
+
+	__envTabComponent.setColour(TabbedComponent::ColourIds::outlineColourId, Colour::fromRGBA(0, 0, 0, 0));
+	__envTabComponent.setTabBarDepth(35);
+	__envTabComponent.setOutline(0);
+	__envTabComponent.getTabbedButtonBar().setColour(TabbedButtonBar::ColourIds::tabOutlineColourId, Colours::transparentWhite);
+	__envTabComponent.setSize(400, 100);
+	__envTabComponent.setVisible(true);
+	__envTabComponent.addTab("V", Colour::fromRGB(200, 200, 200), &__envComponent, true);
+	__envTabComponent.addTab("F", Colour::fromRGB(200, 200, 200), &__filterEnvComponent, true);
+	addAndMakeVisible(__envTabComponent);
+
 
 	addAndMakeVisible(__toggleOsc = new ParameterButton(*Global->paramHandler->Get<AudioParameterBool>(__ID, "OSC_MIX_EN")));
 	__toggleOsc->setButtonText("Oscillator");
@@ -63,7 +76,7 @@ void OscillatorPageComponent::resized(){
 	bounds.removeFromTop(5);
 	__oscillator.setBounds(bounds.removeFromLeft(400));
 	bounds.removeFromLeft(16);
-	__envComponent.setBounds(bounds.removeFromLeft(400));
+	__envTabComponent.setBounds(bounds.removeFromLeft(400));
 	//__lfo.setBounds(getLocalBounds().reduced(8).removeFromRight(200).removeFromTop(250));
 	bounds.removeFromLeft(15);
 	Rectangle<int> filterBounds(bounds.removeFromBottom(105));
