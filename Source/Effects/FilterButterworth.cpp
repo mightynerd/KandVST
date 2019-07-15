@@ -37,6 +37,7 @@ FilterButterworth<T>::FilterButterworth(int ID, double sampleRate, String parame
 	__prevFc = -1;
 	__sqrt2 = sqrt(2);
 	lpFrequency = Global->paramHandler->Get<AudioParameterFloat>(ID, parameterId);
+	lpQfactor = Global->paramHandler->Get<AudioParameterFloat>(ID, parameterId + "_Q");
 	lfoIndex = Global->paramHandler->Get<AudioParameterChoice>(ID, parameterId + "_LFO");
 }
 
@@ -48,6 +49,7 @@ template<typename T>
 void FilterButterworth<T>::RegisterParameters(int ID, String parameterLabel, String parameterId, float defaultValue,GLOBAL*Global)
 {
 	Global->paramHandler->RegisterFloat(ID, parameterId, parameterLabel, 20.0f, 20000.0f, defaultValue);
+	Global->paramHandler->RegisterFloat(ID, parameterId + "_Q", parameterLabel, 0.1f, 20.0f, 1.0f);
 	StringArray choices("OFF", "LFO_1", "LFO_2");
 	Global->paramHandler->RegisterChoice(ID, parameterId + "_LFO", parameterLabel + " lfo", choices, 0);
 }
@@ -71,6 +73,9 @@ bool FilterButterworth<T>::RenderBlock(AudioBuffer<T>& buffer, int len, bool emp
 	{
 		__enabled = false;
 	}
+	__q = *lpQfactor;
+	// Temporary:
+	CalculateCoefficients();
 
 
 	if (!__enabled && ((!empty) && (IsEnabled() || amount > 0.0)))

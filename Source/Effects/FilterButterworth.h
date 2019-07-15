@@ -58,12 +58,14 @@ protected:
 	T __b[3] = { 0, 0, 0 };
 
 	float __fc;
+	float __q;
 	T __fs;
 	T __sqrt2;
 
 	float __upperLimit, __lowerLimit;
 
 	AudioParameterFloat* lpFrequency;
+	AudioParameterFloat* lpQfactor;
 	AudioParameterChoice* lfoIndex;
 	
 public:

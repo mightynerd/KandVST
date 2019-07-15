@@ -40,6 +40,7 @@ template<typename T>
 void FilterLP<T>::RegisterParameters(int ID, GLOBAL*Global)
 {
 	FilterButterworth<T>::RegisterParameters(ID, "LP Frequency", "FILTER_LP", 20000.0f,Global);
+	//FilterButterworth<T>::RegisterParameters(ID, "LP Q-factor",  "FILTER_LP_Q", 1.0f, Global);
 }
 
 template<typename T>
@@ -51,9 +52,9 @@ void FilterLP<T>::CalculateCoefficients()
 	T fs2 = this->__fs * this->__fs;
 	T wc2 = wc * wc;
 
-	this->__a[0] = 4 * (fs2) + 2 * this->__fs*wc*this->__sqrt2 + (wc2);
+	this->__a[0] = 4 * (fs2) + (2 * this->__fs*wc)/this->__q + (wc2);
 	this->__a[1] = (2 * (wc2) - 8 * (fs2)) / this->__a[0];
-	this->__a[2] = ((wc2) - 2 * this->__sqrt2*wc*this->__fs + 4 * (fs2)) / this->__a[0];
+	this->__a[2] = ((wc2) - (2 * wc*this->__fs)/this->__q + 4 * (fs2)) / this->__a[0];
 
 	this->__b[0] = (wc2) / this->__a[0];
 	
