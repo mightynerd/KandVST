@@ -35,6 +35,7 @@ FilterButterworth<T>::FilterButterworth(int ID, double sampleRate, String parame
 	Global = global;
 	__fs = sampleRate;
 	__prevFc = -1;
+	__prevQ = -1;
 	__sqrt2 = sqrt(2);
 	lpFrequency = Global->paramHandler->Get<AudioParameterFloat>(ID, parameterId);
 	lpQfactor = Global->paramHandler->Get<AudioParameterFloat>(ID, parameterId + "_Q");
@@ -49,7 +50,8 @@ template<typename T>
 void FilterButterworth<T>::RegisterParameters(int ID, String parameterLabel, String parameterId, float defaultValue,GLOBAL*Global)
 {
 	Global->paramHandler->RegisterFloat(ID, parameterId, parameterLabel, 20.0f, 20000.0f, defaultValue);
-	Global->paramHandler->RegisterFloat(ID, parameterId + "_Q", parameterLabel, 0.1f, 20.0f, 1.0f);
+	float noq = 1 / std::sqrt(2.0f);
+	Global->paramHandler->RegisterFloat(ID, parameterId + "_Q", parameterLabel, noq, 40.0f, 1.0f);
 	StringArray choices("OFF", "LFO_1", "LFO_2");
 	Global->paramHandler->RegisterChoice(ID, parameterId + "_LFO", parameterLabel + " lfo", choices, 0);
 }
@@ -63,7 +65,6 @@ bool FilterButterworth<T>::RenderBlock(AudioBuffer<T>& buffer, int len, bool emp
 		amount = Global->lfos[lfoIndx - 1]->getAmount() * 0.985;
 		double lfoSamp = (Global->lfos[lfoIndx - 1]->getPointer()[0] + 1.0) / 2.0;
 		__fc = (*lpFrequency) - ((*lpFrequency) - __lowerLimit)*lfoSamp*amount;
-			//CalculateCoefficients();
 	}
 	else {
 		__fc = *lpFrequency;
@@ -73,9 +74,8 @@ bool FilterButterworth<T>::RenderBlock(AudioBuffer<T>& buffer, int len, bool emp
 	{
 		__enabled = false;
 	}
+
 	__q = *lpQfactor;
-	// Temporary:
-	CalculateCoefficients();
 
 
 	if (!__enabled && ((!empty) && (IsEnabled() || amount > 0.0)))
@@ -111,11 +111,12 @@ bool FilterButterworth<T>::RenderBlock(AudioBuffer<T>& buffer, int len, bool emp
 		return false;
 	}
 
-	if (__fc != __prevFc)
+	if (__fc != __prevFc || __q != __prevQ)
 	{
 		CalculateCoefficients();
 	}
 	__prevFc = __fc;
+	__prevQ = __q;
 
 	auto buff = buffer.getArrayOfWritePointers();
 

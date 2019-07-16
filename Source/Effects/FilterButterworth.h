@@ -43,6 +43,7 @@ private:
 	int __firstSampleIndex;
 
 	double __prevFc;
+	float __prevQ;
 
 	T __prevX1[2] = { 0, 0 };
 	T __prevX2[2] = { 0, 0 };
