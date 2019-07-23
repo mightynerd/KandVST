@@ -43,6 +43,7 @@ private:
 	int __firstSampleIndex;
 
 	double __prevFc;
+	float __prevQ;
 
 	T __prevX1[2] = { 0, 0 };
 	T __prevX2[2] = { 0, 0 };
@@ -58,12 +59,14 @@ protected:
 	T __b[3] = { 0, 0, 0 };
 
 	float __fc;
+	float __q;
 	T __fs;
 	T __sqrt2;
 
 	float __upperLimit, __lowerLimit;
 
 	AudioParameterFloat* lpFrequency;
+	AudioParameterFloat* lpQfactor;
 	AudioParameterChoice* lfoIndex;
 	
 public:

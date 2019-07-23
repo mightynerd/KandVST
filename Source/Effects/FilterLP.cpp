@@ -45,15 +45,15 @@ void FilterLP<T>::RegisterParameters(int ID, GLOBAL*Global)
 template<typename T>
 void FilterLP<T>::CalculateCoefficients()
 {
-	// Calculate coefficients based on the current cut-off frequency
+	// Calculate coefficients based on the current cut-off frequency and Q-factor
 	T wc = 2 * Constants<T>::PI * this->__fc;
 	wc = 2 * this->__fs * tan(wc / (2 * this->__fs));
 	T fs2 = this->__fs * this->__fs;
 	T wc2 = wc * wc;
 
-	this->__a[0] = 4 * (fs2) + 2 * this->__fs*wc*this->__sqrt2 + (wc2);
+	this->__a[0] = 4 * (fs2) + (2 * this->__fs*wc)/this->__q + (wc2);
 	this->__a[1] = (2 * (wc2) - 8 * (fs2)) / this->__a[0];
-	this->__a[2] = ((wc2) - 2 * this->__sqrt2*wc*this->__fs + 4 * (fs2)) / this->__a[0];
+	this->__a[2] = ((wc2) - (2 * wc*this->__fs)/this->__q + 4 * (fs2)) / this->__a[0];
 
 	this->__b[0] = (wc2) / this->__a[0];
 	
