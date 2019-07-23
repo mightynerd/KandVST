@@ -29,8 +29,8 @@ OscillatorPageComponent::~OscillatorPageComponent()
 
 OscillatorPageComponent::OscillatorPageComponent(int ID,GLOBAL*global):
 IVSTParameters(ID),
-__envComponent(ID,global,false),
-__filterEnvComponent(ID, global,true),
+__envComponent(ID,global),
+__filterEnvComponent(ID, global),
 __envTabComponent(juce::TabbedButtonBar::TabsAtTop),
 __oscillator(ID,global),
 __filterComponent(ID,global),

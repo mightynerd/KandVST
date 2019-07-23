@@ -24,7 +24,8 @@
 #define OSCILLATOR_PAGE_COMPONENT_H
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "IVSTParameters.h"
-#include "EnvelopeComponent.h"
+#include "AmplitudeEnvelopeComponent.h"
+#include "FilterEnvelopeComponent.h"
 #include "ParameterSlider.h"
 #include "Global.h"
 #include "OscillatorComponent.h"
@@ -48,8 +49,8 @@ public:
 	GLOBAL * Global;
 private:
     //==============================================================================
-	EnvelopeComponent __envComponent;
-	EnvelopeComponent __filterEnvComponent;
+	AmplitudeEnvelopeComponent __envComponent;
+	FilterEnvelopeComponent __filterEnvComponent;
 	TabbedComponent __envTabComponent;
 	OscillatorComponent __oscillator;
 	DistComponent __dist;

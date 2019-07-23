@@ -240,19 +240,15 @@ void EnvelopeGenerator::recalculateParameters()
 {
 }
 
-EnvelopeGenerator::EnvelopeGenerator(int ID,double sampleRate,GLOBAL*global, bool filter):
+EnvelopeGenerator::EnvelopeGenerator(int ID,double sampleRate,GLOBAL*global, String prefix):
 	IVSTParameters(ID),
 	__sampleRate(sampleRate),
 	__state(5),
 	__amplitude(0),
 	__vel(127),
 	__velMulti(1.0),
-	__counter(0),
-	__filter(filter)
+	__counter(0)
 {
-	String prefix = String("");
-	if (filter)
-		prefix = String("F");
 
 	Global = global;
 	__a_time = Global->paramHandler->Get<AudioParameterFloat>(__ID, prefix + "ENV_ATTACK_TIME");
@@ -286,7 +282,7 @@ void EnvelopeGenerator::Stop()
 }
 
 
-void EnvelopeGenerator::RenderImage(int __ID, Image * image, GLOBAL*Global, bool filter)
+void EnvelopeGenerator::RenderImage(int __ID, Image * image, GLOBAL*Global, String prefix)
 {
 	int colourId = Global->paramHandler->Get<AudioParameterChoice>(-1, "THEME")->getIndex();
 	ThemePicker tp;
@@ -295,10 +291,6 @@ void EnvelopeGenerator::RenderImage(int __ID, Image * image, GLOBAL*Global, bool
 	g->setImageResamplingQuality(Graphics::ResamplingQuality::highResamplingQuality);
 	g->setColour(Swatch::background);
 	g->fillAll();
-
-	String prefix = String("");
-	if (filter)
-		prefix = String("F");
 	
 	AudioParameterFloat * __a_time, *__a_level, *__a_curve, *__h_time, *__d_time, *__d_level, *__d_curve, *__r_time, *__r_curve, *__s_level, *__s_time, *__s_curve;
 	__a_time  = Global->paramHandler->Get<AudioParameterFloat>(__ID, prefix + "ENV_ATTACK_TIME");

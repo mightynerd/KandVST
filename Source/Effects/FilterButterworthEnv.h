@@ -42,7 +42,7 @@ private:
 	virtual bool IsEnabled() = 0;
 	bool __enabled;
 	int __firstSampleIndex;
-	EnvelopeGenerator __envelope;
+	FilterEnvelopeGenerator __envelope;
 	bool __keyDown;
 	AudioBuffer<double> __envBuffer;
 	double __prevFc;

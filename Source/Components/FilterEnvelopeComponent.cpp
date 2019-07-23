@@ -107,7 +107,7 @@ EnvelopeComponent::EnvelopeComponent(int ID, GLOBAL* global, String prefix) :
 	setSize(400, 100);
 	addAndMakeVisible(__envImageComponent);
 	__envImageComponent.setImage(*__envImage);
-	EnvelopeGenerator::RenderImage(__ID, __envImage,Global, __prefix);
+	EnvelopeGenerator::RenderImage(__ID, __envImage,Global, __filter);
 	__envImageComponent.repaint();
 	Global->paramHandler->addParamaterListener(this, ID, prefix.toStdString() + "ENV_ATTACK_TIME");
 	Global->paramHandler->addParamaterListener(this, ID, prefix.toStdString() + "ENV_HOLD_TIME");

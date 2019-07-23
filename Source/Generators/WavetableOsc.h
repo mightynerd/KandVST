@@ -24,7 +24,7 @@
 #define WAVETABLEOSC_H
 
 #include "IGenerator.h"
-#include "EnvelopeGenerator.h"
+#include "AmplitudeEnvelopeGenerator.h"
 #include "IWavetable.h"
 #include "IVSTParameters.h"
 #include "../JuceLibraryCode/JuceHeader.h"
@@ -37,7 +37,7 @@ class WavetableOsc : public IGenerator, public IVSTParameters
 {
 private:
 	int __maxBuffHint;
-	EnvelopeGenerator __envelope;
+	AmplitudeEnvelopeGenerator __envelope;
 	int __note;
 	double __frequency;
 	double __phase;
