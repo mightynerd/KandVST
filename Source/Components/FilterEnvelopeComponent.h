@@ -38,7 +38,7 @@ class FilterEnvelopeComponent : public EnvelopeComponent{
 public:
 	FilterEnvelopeComponent(int ID, GLOBAL* global)
 		: EnvelopeComponent(ID, global, "F_") {};
-	~FilterEnvelopeComponent();
+	//~FilterEnvelopeComponent();
 
 };
 #endif

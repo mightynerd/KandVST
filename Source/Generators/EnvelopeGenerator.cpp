@@ -516,23 +516,23 @@ void EnvelopeGenerator::RenderImage(int __ID, Image * image, GLOBAL*Global, Stri
 	
 }
 
-void EnvelopeGenerator::RegisterParameters(int ID,GLOBAL*Global)
+void EnvelopeGenerator::RegisterParameters(int ID, GLOBAL*Global, String prefix)
 {
-	Global->paramHandler->RegisterFloat(ID, "ENV_ATTACK_LEVEL", "Attack level", 0.01f, 1.0f, 1.0f);
-	Global->paramHandler->RegisterFloat(ID, "ENV_ATTACK_TIME", "Attack time", 0.0f, 2.0f, 0.2f);
-	Global->paramHandler->RegisterFloat(ID, "ENV_ATTACK_CURVE", "Attack curve", 0.01f, 10.0f, 2.0f);
+	Global->paramHandler->RegisterFloat(ID, prefix + "ENV_ATTACK_LEVEL", "Attack level", 0.01f, 1.0f, 1.0f);
+	Global->paramHandler->RegisterFloat(ID, prefix + "ENV_ATTACK_TIME", "Attack time", 0.0f, 2.0f, 0.2f);
+	Global->paramHandler->RegisterFloat(ID, prefix + "ENV_ATTACK_CURVE", "Attack curve", 0.01f, 10.0f, 2.0f);
 
-	Global->paramHandler->RegisterFloat(ID, "ENV_HOLD_TIME", "Hold time", 0.0f, 2.0f, 0.0f);
+	Global->paramHandler->RegisterFloat(ID, prefix + "ENV_HOLD_TIME", "Hold time", 0.0f, 2.0f, 0.0f);
 
-	Global->paramHandler->RegisterFloat(ID, "ENV_DECAY_LEVEL", "Decay level", 0.01f, 1.0f, 0.9f);
-	Global->paramHandler->RegisterFloat(ID, "ENV_DECAY_TIME", "Decay time", 0.0f, 2.0f, 0.2f);
-	Global->paramHandler->RegisterFloat(ID, "ENV_DECAY_CURVE", "Decay curve", 0.01f, 10.0f, 1.0f);
+	Global->paramHandler->RegisterFloat(ID, prefix + "ENV_DECAY_LEVEL", "Decay level", 0.01f, 1.0f, 0.9f);
+	Global->paramHandler->RegisterFloat(ID, prefix + "ENV_DECAY_TIME", "Decay time", 0.0f, 2.0f, 0.2f);
+	Global->paramHandler->RegisterFloat(ID, prefix + "ENV_DECAY_CURVE", "Decay curve", 0.01f, 10.0f, 1.0f);
 
-	Global->paramHandler->RegisterFloat(ID, "ENV_SUSTAIN_LEVEL", "Sustain level", 0.0f, 1.0f, 1.0f);
-	Global->paramHandler->RegisterFloat(ID, "ENV_SUSTAIN_TIME", "Sustain time", 0.01f, 10.0f, 2.0f);
-	Global->paramHandler->RegisterFloat(ID, "ENV_SUSTAIN_CURVE", "Sustain curve", 0.01f, 10.0f, 1.0f);
+	Global->paramHandler->RegisterFloat(ID, prefix + "ENV_SUSTAIN_LEVEL", "Sustain level", 0.0f, 1.0f, 1.0f);
+	Global->paramHandler->RegisterFloat(ID, prefix + "ENV_SUSTAIN_TIME", "Sustain time", 0.01f, 10.0f, 2.0f);
+	Global->paramHandler->RegisterFloat(ID, prefix + "ENV_SUSTAIN_CURVE", "Sustain curve", 0.01f, 10.0f, 1.0f);
 
-	Global->paramHandler->RegisterFloat(ID, "ENV_RELEASE_TIME", "Release time", 0.0f, 2.0f, 0.2f);
-	Global->paramHandler->RegisterFloat(ID, "ENV_RELEASE_CURVE", "Release curve", 0.01f, 10.0f, 1.0f);
+	Global->paramHandler->RegisterFloat(ID, prefix + "ENV_RELEASE_TIME", "Release time", 0.0f, 2.0f, 0.2f);
+	Global->paramHandler->RegisterFloat(ID, prefix + "ENV_RELEASE_CURVE", "Release curve", 0.01f, 10.0f, 1.0f);
 
 }

@@ -35,8 +35,15 @@ class FilterEnvelopeGenerator : public EnvelopeGenerator
 
 public:
 	FilterEnvelopeGenerator(int ID, double sampleRate, GLOBAL* global) :
-		EnvelopeGenerator(ID, sampleRate, global, String("F_")) {};
-	~FilterEnvelopeGenerator();
+		EnvelopeGenerator(ID, sampleRate, global, String("F_")) {}
+	
+	static void RegisterParameters(int ID, GLOBAL* Global)
+	{
+		EnvelopeGenerator::RegisterParameters(ID, Global, String("F_"));
+	}
+
+	//~FilterEnvelopeGenerator() :
+	//	~EnvelopeGenerator() {}
 };
-#endif //ENVELOPE_GENERATOR_H
+#endif //FILTER_ENVELOPE_GENERATOR_H
 

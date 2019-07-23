@@ -37,7 +37,7 @@ class AmplitudeEnvelopeComponent : public EnvelopeComponent {
 public:
 	AmplitudeEnvelopeComponent(int ID, GLOBAL* global)
 		: EnvelopeComponent(ID, global, String("")) {};
-	~AmplitudeEnvelopeComponent();
+	//~AmplitudeEnvelopeComponent();
 
 };
 #endif

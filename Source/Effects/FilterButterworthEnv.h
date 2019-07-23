@@ -27,7 +27,7 @@
 #include "ParameterHandler.h"
 #include "Global.h"
 #include "IVSTParameters.h"
-#include "EnvelopeGenerator.h"
+#include "FilterEnvelopeGenerator.h"
 
 
 // Generic 2:nd order Butterwroth filter class

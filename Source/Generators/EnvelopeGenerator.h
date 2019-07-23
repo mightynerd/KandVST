@@ -50,7 +50,7 @@ public:
 	void RenderBlock(double * buffer, size_t size);
 	void setVelocity(uint8 vel);
 	void setSustain(uint8 sust);
-	static void RegisterParameters(int ID, GLOBAL*Global);
+	static void RegisterParameters(int ID, GLOBAL *Global, String prefix);
 	EnvelopeGenerator(int ID,double sampleRate,GLOBAL*global, String prefix);
 	bool isActive() const;
 	void Stop();

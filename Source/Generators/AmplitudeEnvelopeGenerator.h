@@ -35,8 +35,15 @@ class AmplitudeEnvelopeGenerator : public EnvelopeGenerator
 
 public:
 	AmplitudeEnvelopeGenerator(int ID, double sampleRate, GLOBAL* global) :
-		EnvelopeGenerator(ID, sampleRate, global, String("")) {};
-	~AmplitudeEnvelopeGenerator();
+		EnvelopeGenerator::EnvelopeGenerator(ID, sampleRate, global, String("")) {}
+
+	static void RegisterParameters(int ID, GLOBAL* Global)
+	{
+		EnvelopeGenerator::RegisterParameters(ID, Global, String(""));
+	}
+
+	//~AmplitudeEnvelopeGenerator() :
+	//	~EnvelopeGenerator() {}
 };
-#endif //ENVELOPE_GENERATOR_H
+#endif //AMP_ENVELOPE_GENERATOR_H
 
