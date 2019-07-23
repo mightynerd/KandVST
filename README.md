@@ -1,5 +1,9 @@
 # KandVST
 [![Build status](https://build.rahmn.net/guestAuth/app/rest/builds/buildType:id:KandVST_Build/statusIcon.svg)](https://build.rahmn.net/)
+
+## This fork's in-dev features:
+* More advanced filter with Q-factor and envelope control (one per oscillator)
+
 ## Features ##
 * 4 oscillators capable of generating sine, square, triangle and saw waves simultaneously
 * Volume envelope for each oscillator
