@@ -46,7 +46,8 @@ PluginProcessor::PluginProcessor()
 	Global = new GLOBAL(this);
 	// -1 = master
 
-	setParameters<int,	EnvelopeGenerator, 
+	setParameters<int,	AmplitudeEnvelopeGenerator, 
+						FilterEnvelopeGenerator,
 						DelayEffect<double>, 
 						DistEffect<double>,
 						WavetableOsc,
@@ -61,6 +62,7 @@ PluginProcessor::PluginProcessor()
 						BitcrushEffect<double>
 			>({
 			{0,1,2,3},
+			{0,1,2,3},
 			{-1},
 			{0,1,2,3},
 			{0,1,2,3},
@@ -74,6 +76,8 @@ PluginProcessor::PluginProcessor()
 			{-1},
 			{-1}
 			}, Global);
+
+
 
 	Global->presetManager->RefreshPresets();
 	

@@ -240,7 +240,7 @@ void EnvelopeGenerator::recalculateParameters()
 {
 }
 
-EnvelopeGenerator::EnvelopeGenerator(int ID,double sampleRate,GLOBAL*global):
+EnvelopeGenerator::EnvelopeGenerator(int ID,double sampleRate,GLOBAL*global, String prefix):
 	IVSTParameters(ID),
 	__sampleRate(sampleRate),
 	__state(5),
@@ -249,20 +249,21 @@ EnvelopeGenerator::EnvelopeGenerator(int ID,double sampleRate,GLOBAL*global):
 	__velMulti(1.0),
 	__counter(0)
 {
-	Global = global;
-	__a_time = Global->paramHandler->Get<AudioParameterFloat>(__ID, "ENV_ATTACK_TIME");
-	__a_level = Global->paramHandler->Get<AudioParameterFloat>(__ID, "ENV_ATTACK_LEVEL");
-	__a_curve = Global->paramHandler->Get<AudioParameterFloat>(__ID, "ENV_ATTACK_CURVE");
-	__h_time = Global->paramHandler->Get<AudioParameterFloat>(__ID, "ENV_HOLD_TIME");
-	__d_time = Global->paramHandler->Get<AudioParameterFloat>(__ID, "ENV_DECAY_TIME");
-	__d_level = Global->paramHandler->Get<AudioParameterFloat>(__ID, "ENV_DECAY_LEVEL");
-	__d_curve = Global->paramHandler->Get<AudioParameterFloat>(__ID, "ENV_DECAY_CURVE");
-	__r_time = Global->paramHandler->Get<AudioParameterFloat>(__ID, "ENV_RELEASE_TIME");
-	__r_curve = Global->paramHandler->Get<AudioParameterFloat>(__ID, "ENV_RELEASE_CURVE");
 
-	__s_time = Global->paramHandler->Get<AudioParameterFloat>(__ID, "ENV_SUSTAIN_TIME");
-	__s_level = Global->paramHandler->Get<AudioParameterFloat>(__ID, "ENV_SUSTAIN_LEVEL");
-	__s_curve = Global->paramHandler->Get<AudioParameterFloat>(__ID, "ENV_SUSTAIN_CURVE");
+	Global = global;
+	__a_time = Global->paramHandler->Get<AudioParameterFloat>(__ID, prefix + "ENV_ATTACK_TIME");
+	__a_level = Global->paramHandler->Get<AudioParameterFloat>(__ID, prefix + "ENV_ATTACK_LEVEL");
+	__a_curve = Global->paramHandler->Get<AudioParameterFloat>(__ID, prefix + "ENV_ATTACK_CURVE");
+	__h_time = Global->paramHandler->Get<AudioParameterFloat>(__ID, prefix + "ENV_HOLD_TIME");
+	__d_time = Global->paramHandler->Get<AudioParameterFloat>(__ID, prefix + "ENV_DECAY_TIME");
+	__d_level = Global->paramHandler->Get<AudioParameterFloat>(__ID, prefix + "ENV_DECAY_LEVEL");
+	__d_curve = Global->paramHandler->Get<AudioParameterFloat>(__ID, prefix + "ENV_DECAY_CURVE");
+	__r_time = Global->paramHandler->Get<AudioParameterFloat>(__ID, prefix + "ENV_RELEASE_TIME");
+	__r_curve = Global->paramHandler->Get<AudioParameterFloat>(__ID, prefix + "ENV_RELEASE_CURVE");
+
+	__s_time = Global->paramHandler->Get<AudioParameterFloat>(__ID, prefix + "ENV_SUSTAIN_TIME");
+	__s_level = Global->paramHandler->Get<AudioParameterFloat>(__ID, prefix + "ENV_SUSTAIN_LEVEL");
+	__s_curve = Global->paramHandler->Get<AudioParameterFloat>(__ID, prefix + "ENV_SUSTAIN_CURVE");
 }
 
 EnvelopeGenerator::~EnvelopeGenerator()
@@ -281,7 +282,7 @@ void EnvelopeGenerator::Stop()
 }
 
 
-void EnvelopeGenerator::RenderImage(int __ID, Image * image, GLOBAL*Global)
+void EnvelopeGenerator::RenderImage(int __ID, Image * image, GLOBAL*Global, String prefix)
 {
 	int colourId = Global->paramHandler->Get<AudioParameterChoice>(-1, "THEME")->getIndex();
 	ThemePicker tp;
@@ -292,19 +293,19 @@ void EnvelopeGenerator::RenderImage(int __ID, Image * image, GLOBAL*Global)
 	g->fillAll();
 	
 	AudioParameterFloat * __a_time, *__a_level, *__a_curve, *__h_time, *__d_time, *__d_level, *__d_curve, *__r_time, *__r_curve, *__s_level, *__s_time, *__s_curve;
-	__a_time  = Global->paramHandler->Get<AudioParameterFloat>(__ID, "ENV_ATTACK_TIME");
-	__a_level = Global->paramHandler->Get<AudioParameterFloat>(__ID, "ENV_ATTACK_LEVEL");
-	__a_curve = Global->paramHandler->Get<AudioParameterFloat>(__ID, "ENV_ATTACK_CURVE");
-	__h_time  = Global->paramHandler->Get<AudioParameterFloat>(__ID, "ENV_HOLD_TIME");
-	__d_time  = Global->paramHandler->Get<AudioParameterFloat>(__ID, "ENV_DECAY_TIME");
-	__d_level = Global->paramHandler->Get<AudioParameterFloat>(__ID, "ENV_DECAY_LEVEL");
-	__d_curve = Global->paramHandler->Get<AudioParameterFloat>(__ID, "ENV_DECAY_CURVE");
-	__r_time  = Global->paramHandler->Get<AudioParameterFloat>(__ID, "ENV_RELEASE_TIME");
-	__r_curve = Global->paramHandler->Get<AudioParameterFloat>(__ID, "ENV_RELEASE_CURVE");
+	__a_time  = Global->paramHandler->Get<AudioParameterFloat>(__ID, prefix + "ENV_ATTACK_TIME");
+	__a_level = Global->paramHandler->Get<AudioParameterFloat>(__ID, prefix + "ENV_ATTACK_LEVEL");
+	__a_curve = Global->paramHandler->Get<AudioParameterFloat>(__ID, prefix + "ENV_ATTACK_CURVE");
+	__h_time  = Global->paramHandler->Get<AudioParameterFloat>(__ID, prefix + "ENV_HOLD_TIME");
+	__d_time  = Global->paramHandler->Get<AudioParameterFloat>(__ID, prefix + "ENV_DECAY_TIME");
+	__d_level = Global->paramHandler->Get<AudioParameterFloat>(__ID, prefix + "ENV_DECAY_LEVEL");
+	__d_curve = Global->paramHandler->Get<AudioParameterFloat>(__ID, prefix + "ENV_DECAY_CURVE");
+	__r_time  = Global->paramHandler->Get<AudioParameterFloat>(__ID, prefix + "ENV_RELEASE_TIME");
+	__r_curve = Global->paramHandler->Get<AudioParameterFloat>(__ID, prefix + "ENV_RELEASE_CURVE");
 
-	__s_time  = Global->paramHandler->Get<AudioParameterFloat>(__ID, "ENV_SUSTAIN_TIME");
-	__s_level = Global->paramHandler->Get<AudioParameterFloat>(__ID, "ENV_SUSTAIN_LEVEL");
-	__s_curve = Global->paramHandler->Get<AudioParameterFloat>(__ID, "ENV_SUSTAIN_CURVE");
+	__s_time  = Global->paramHandler->Get<AudioParameterFloat>(__ID, prefix + "ENV_SUSTAIN_TIME");
+	__s_level = Global->paramHandler->Get<AudioParameterFloat>(__ID, prefix + "ENV_SUSTAIN_LEVEL");
+	__s_curve = Global->paramHandler->Get<AudioParameterFloat>(__ID, prefix + "ENV_SUSTAIN_CURVE");
 	float __s_time_s = *__s_time;
 	double a_level = *__a_level;
 	double a_c = *__a_curve;
@@ -515,23 +516,23 @@ void EnvelopeGenerator::RenderImage(int __ID, Image * image, GLOBAL*Global)
 	
 }
 
-void EnvelopeGenerator::RegisterParameters(int ID,GLOBAL*Global)
+void EnvelopeGenerator::RegisterParameters(int ID, GLOBAL*Global, String prefix)
 {
-	Global->paramHandler->RegisterFloat(ID, "ENV_ATTACK_LEVEL", "Attack level", 0.01f, 1.0f, 1.0f);
-	Global->paramHandler->RegisterFloat(ID, "ENV_ATTACK_TIME", "Attack time", 0.0f, 2.0f, 0.2f);
-	Global->paramHandler->RegisterFloat(ID, "ENV_ATTACK_CURVE", "Attack curve", 0.01f, 10.0f, 2.0f);
+	Global->paramHandler->RegisterFloat(ID, prefix + "ENV_ATTACK_LEVEL", "Attack level", 0.01f, 1.0f, 1.0f);
+	Global->paramHandler->RegisterFloat(ID, prefix + "ENV_ATTACK_TIME", "Attack time", 0.0f, 2.0f, 0.2f);
+	Global->paramHandler->RegisterFloat(ID, prefix + "ENV_ATTACK_CURVE", "Attack curve", 0.01f, 10.0f, 2.0f);
 
-	Global->paramHandler->RegisterFloat(ID, "ENV_HOLD_TIME", "Hold time", 0.0f, 2.0f, 0.0f);
+	Global->paramHandler->RegisterFloat(ID, prefix + "ENV_HOLD_TIME", "Hold time", 0.0f, 2.0f, 0.0f);
 
-	Global->paramHandler->RegisterFloat(ID, "ENV_DECAY_LEVEL", "Decay level", 0.01f, 1.0f, 0.9f);
-	Global->paramHandler->RegisterFloat(ID, "ENV_DECAY_TIME", "Decay time", 0.0f, 2.0f, 0.2f);
-	Global->paramHandler->RegisterFloat(ID, "ENV_DECAY_CURVE", "Decay curve", 0.01f, 10.0f, 1.0f);
+	Global->paramHandler->RegisterFloat(ID, prefix + "ENV_DECAY_LEVEL", "Decay level", 0.01f, 1.0f, 0.9f);
+	Global->paramHandler->RegisterFloat(ID, prefix + "ENV_DECAY_TIME", "Decay time", 0.0f, 2.0f, 0.2f);
+	Global->paramHandler->RegisterFloat(ID, prefix + "ENV_DECAY_CURVE", "Decay curve", 0.01f, 10.0f, 1.0f);
 
-	Global->paramHandler->RegisterFloat(ID, "ENV_SUSTAIN_LEVEL", "Sustain level", 0.0f, 1.0f, 1.0f);
-	Global->paramHandler->RegisterFloat(ID, "ENV_SUSTAIN_TIME", "Sustain time", 0.01f, 10.0f, 2.0f);
-	Global->paramHandler->RegisterFloat(ID, "ENV_SUSTAIN_CURVE", "Sustain curve", 0.01f, 10.0f, 1.0f);
+	Global->paramHandler->RegisterFloat(ID, prefix + "ENV_SUSTAIN_LEVEL", "Sustain level", 0.0f, 1.0f, 1.0f);
+	Global->paramHandler->RegisterFloat(ID, prefix + "ENV_SUSTAIN_TIME", "Sustain time", 0.01f, 10.0f, 2.0f);
+	Global->paramHandler->RegisterFloat(ID, prefix + "ENV_SUSTAIN_CURVE", "Sustain curve", 0.01f, 10.0f, 1.0f);
 
-	Global->paramHandler->RegisterFloat(ID, "ENV_RELEASE_TIME", "Release time", 0.0f, 2.0f, 0.2f);
-	Global->paramHandler->RegisterFloat(ID, "ENV_RELEASE_CURVE", "Release curve", 0.01f, 10.0f, 1.0f);
+	Global->paramHandler->RegisterFloat(ID, prefix + "ENV_RELEASE_TIME", "Release time", 0.0f, 2.0f, 0.2f);
+	Global->paramHandler->RegisterFloat(ID, prefix + "ENV_RELEASE_CURVE", "Release curve", 0.01f, 10.0f, 1.0f);
 
 }

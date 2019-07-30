@@ -38,7 +38,7 @@ Pipeline<T>::Pipeline(double rate,int maxBuffHint,GLOBAL*global) :
 			);
 
 		__effects[i*__num_effects] = new DistEffect<T>(i, rate,Global);
-		__effects[i*__num_effects + 1] = new FilterLP<T>(i, rate, "FILTER_LP", Global);
+		__effects[i*__num_effects + 1] = new FilterEnvLP<T>(i, rate, "FILTER_LP", Global);
 		__effects[i*__num_effects + 2] = new FilterHP<T>(i, rate, "FILTER_HP", Global);
 	}
 
@@ -56,6 +56,11 @@ int Pipeline<T>::getNoteNumber()
 template<typename T>
 void Pipeline<T>::midiCommand(MidiMessage msg, int offset)
 {
+	for (int i = 0; i < this->__num_osc; i++)
+	{
+		__effects[i * __num_effects + 1]->ProccessCommand(msg);
+	}
+
 	if (msg.isNoteOn())
 	{
 		__note = msg.getNoteNumber();

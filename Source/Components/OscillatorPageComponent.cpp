@@ -29,7 +29,9 @@ OscillatorPageComponent::~OscillatorPageComponent()
 
 OscillatorPageComponent::OscillatorPageComponent(int ID,GLOBAL*global):
 IVSTParameters(ID),
-__envComponent(ID,global),
+__envComponent(ID, global),
+__filterEnvComponent(ID, global),
+__envTabComponent(juce::TabbedButtonBar::TabsAtTop),
 __oscillator(ID,global),
 __filterComponent(ID,global),
 __osclfoComponent(ID,global),
@@ -38,32 +40,47 @@ __dist(ID,global)
 	Global = global;
 	__amplitude = new ParameterSlider(*Global->paramHandler->Get<AudioParameterFloat>(ID,"OSC_MIX_AMP"),Global);
 
-	addAndMakeVisible(__envComponent);
+	//addAndMakeVisible(__envComponent);
 	addAndMakeVisible(__oscillator);
 	addAndMakeVisible(__amplitude);
 	addAndMakeVisible(__filterComponent);
 	addAndMakeVisible(__osclfoComponent);
 	addAndMakeVisible(__dist);
 
+	__envTabComponent.setColour(TabbedComponent::ColourIds::outlineColourId, Colour::fromRGBA(0, 0, 0, 0));
+	__envTabComponent.setTabBarDepth(30);
+	__envTabComponent.setOutline(0);
+	__envTabComponent.getTabbedButtonBar().setColour(TabbedButtonBar::ColourIds::tabOutlineColourId, Colours::transparentWhite);
+	__envTabComponent.setSize(400, 100);
+	__envTabComponent.setVisible(true);
+	// Last argument should probably be true
+	__envTabComponent.addTab("V", Colour::fromRGB(36, 36, 36), &__envComponent, false);
+	__envTabComponent.addTab("F", Colour::fromRGB(36, 36, 36), &__filterEnvComponent, false);
+	addAndMakeVisible(__envTabComponent);
+
+
 	addAndMakeVisible(__toggleOsc = new ParameterButton(*Global->paramHandler->Get<AudioParameterBool>(__ID, "OSC_MIX_EN")));
 	__toggleOsc->setButtonText("Oscillator");
 	
 }
 
-void OscillatorPageComponent::paint(Graphics& g){
+void OscillatorPageComponent::paint(Graphics& g) {
 	g.setColour(Swatch::background);
 	g.fillAll();
 }
 
-void OscillatorPageComponent::resized(){
-
-
+void OscillatorPageComponent::resized() {
 	Rectangle<int> bounds(getLocalBounds().reduced(8));
 	__toggleOsc->setBounds(bounds.removeFromTop(25).removeFromLeft(100));
+
 	bounds.removeFromTop(5);
 	__oscillator.setBounds(bounds.removeFromLeft(400));
+
 	bounds.removeFromLeft(16);
-	__envComponent.setBounds(bounds.removeFromLeft(400));
+	// Move everything up again
+	bounds.setTop(bounds.getTopLeft().getY() - 25 - 5);
+	__envTabComponent.setBounds(bounds.removeFromLeft(400));
+
 	//__lfo.setBounds(getLocalBounds().reduced(8).removeFromRight(200).removeFromTop(250));
 	bounds.removeFromLeft(15);
 	Rectangle<int> filterBounds(bounds.removeFromBottom(105));
