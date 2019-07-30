@@ -264,7 +264,7 @@ void EnvelopeComponent::componentVisibilityChanged(Component & component)
 
 void EnvelopeComponent::componentParentHierarchyChanged(Component & component)
 {
-	this->getParentComponent()->addComponentListener(this);
+	//this->getParentComponent()->addComponentListener(this);
 	this->removeComponentListener(this);
 }
 
